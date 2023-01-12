@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="F407-VA_Measure" targetName="F407-VA_Measure.elf" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4e33d259-c562-4726-885e-7f755f34c445" name="Changes" comment="Init">
+      <change afterPath="$PROJECT_DIR$/.ai/.ldupdatedone" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/network_NN_Model1.tflite_c_graph.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/network_NN_Model1.tflite_report.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/F407-VA_Measure.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/OCD_F407_VA_Measure.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/adc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/crc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/dma.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/gpio.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/main_cxx.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/rng.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/tim.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/usart.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/adc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/crc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/dma.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/gpio.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/main_cxx.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/rng.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_hal_msp.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/sysmem.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/system_stm32f4xx.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/tim.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Startup/startup_stm32f407vetx.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_armcc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_armclang.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_compiler.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_gcc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_iccarm.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_version.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_armv8mbl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_armv8mml.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm0.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm0plus.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm1.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm23.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm3.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm33.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm4.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm7.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_sc000.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_sc300.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/mpu_armv7.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/mpu_armv8.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/tz_context.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_cortex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_crc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_exti.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_pwr.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rcc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rng.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_tim.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usart.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_utils.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_crc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rng.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_adc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/F407-VA_Measure.ioc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_common_config.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes_defines.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes_format.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes_internal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_layer_custom_interface.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite_inspect.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite_interface.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite_math_helpers.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_math_helpers.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_platform.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_platform_interface.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_common.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_convert.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_datatypes.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_log.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_net_inspect.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_net_inspect_interface.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_private.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/datatypes_network.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/formats_list.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_common.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_conv2d.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_conv2d_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_custom.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_dense.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_dense_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_formats_converters.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_generic.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_generic_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_list.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_lite_graph.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_iforest.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_linearclassifier.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_svc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_svmregressor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_treeensembleclassifier.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_treeensembleregressor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_nl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_norm.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_padding_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_pool.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_pool_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_rnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_sm.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_conv2d.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_conv2d_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_convert_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_if32.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_is1.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_is1ws1.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_ws1.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dw.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dw_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_generic_float.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_maxpool_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_nl_generic_float.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_nl_generic_integer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_nl_list.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_operators.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_padding_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_pw.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_pw_dqnn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Lib/NetworkRuntime730_CM4_GCC.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STM32F407VETX_FLASH.ld" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STM32F407VETX_RAM.ld" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_config.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_generate_report.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/constants_ai.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stm32f4discovery.cfg" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2022" />
+    <option name="minorVersion" value="3.1" />
+  </component>
+  <component name="ProjectId" id="2JuVZxPItCxIu5ZjIdOV3vmZ0e2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/home/kohigashi/CLionProjects/F407-VA_Measure",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.cidr.embedded.config",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Core/Src" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Core/Inc" />
+      <recent name="$PROJECT_DIR$/Core/Src" />
+      <recent name="$PROJECT_DIR$/tensorflow" />
+    </key>
+  </component>
+  <component name="RunManager" selected="OpenOCD Download &amp; Run.OCD F407-VA_Measure">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="F407-VA_Measure.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="F407-VA_Measure" TARGET_NAME="F407-VA_Measure.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="F407-VA_Measure" RUN_TARGET_NAME="F407-VA_Measure.elf">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Download &amp; Debug" type="com.jetbrains.cidr.embedded.customgdbserver.type" factoryName="com.jetbrains.cidr.embedded.customgdbserver.factory" PROGRAM_PARAMS="-p 30588 -cp &quot;/opt/st/stm32cubeide_1.11.0/plugins/com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.linux64_2.0.500.202209151145/tools/bin&quot; --frequency 8000 --swd" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="F407-VA_Measure" TARGET_NAME="F407-VA_Measure.elf" version="1" RUN_TARGET_PROJECT_NAME="F407-VA_Measure" RUN_TARGET_NAME="F407-VA_Measure.elf">
+      <custom-gdb-server version="1" gdb-connect="tcp::30588" executable="/opt/st/stm32cubeide_1.11.0/plugins/com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.linux64_2.0.400.202209281104/tools/bin/ST-LINK_gdbserver" warmup-ms="0" download-type="UPDATED_ONLY" reset-cmd="monitor reset" reset-type="AFTER_DOWNLOAD">
+        <debugger kind="GDB" isBundled="true" />
+      </custom-gdb-server>
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Downloda &amp; Debug" type="com.jetbrains.cidr.embedded.customgdbserver.type" factoryName="com.jetbrains.cidr.embedded.customgdbserver.factory" PROGRAM_PARAMS="-p 13165 -cp &quot;/opt/st/stm32cubeide_1.11.0/plugins/com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.linux64_2.0.500.202209151145/tools/bin&quot; --frequency 8000 --swd" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="F407-VA_Measure" TARGET_NAME="F407-VA_Measure.elf" version="1" RUN_TARGET_PROJECT_NAME="F407-VA_Measure" RUN_TARGET_NAME="F407-VA_Measure.elf">
+      <custom-gdb-server version="1" gdb-connect="tcp::13165" executable="/opt/st/stm32cubeide_1.11.0/plugins/com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.linux64_2.0.400.202209281104/tools/bin/ST-LINK_gdbserver" warmup-ms="0" download-type="UPDATED_ONLY" reset-cmd="monitor reset" reset-type="AFTER_DOWNLOAD">
+        <debugger kind="GDB" isBundled="true" />
+      </custom-gdb-server>
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OCD F407-VA_Measure" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="F407-VA_Measure" TARGET_NAME="F407-VA_Measure.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="F407-VA_Measure" RUN_TARGET_NAME="F407-VA_Measure.elf">
+      <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="$PROJECT_DIR$/stm32f4discovery.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
+        <debugger kind="GDB" isBundled="true" />
+      </openocd>
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.F407-VA_Measure.elf" />
+      <item itemvalue="Embedded GDB Server.Downloda &amp; Debug" />
+      <item itemvalue="Embedded GDB Server.Download &amp; Debug" />
+      <item itemvalue="OpenOCD Download &amp; Run.OCD F407-VA_Measure" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4e33d259-c562-4726-885e-7f755f34c445" name="Changes" comment="" />
+      <created>1672928014017</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672928014017</updated>
+      <workItem from="1672928052646" duration="5874000" />
+      <workItem from="1672971254022" duration="10030000" />
+      <workItem from="1673400847065" duration="17030000" />
+      <workItem from="1673450452323" duration="941000" />
+      <workItem from="1673503899445" duration="702000" />
+      <workItem from="1673512475056" duration="6312000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Core/Src/main_cxx.cpp</url>
+          <line>3</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
