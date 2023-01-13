@@ -1,26 +1,24 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "adc.h"
 #include "crc.h"
-#include "dma.h"
 #include "rng.h"
 #include "tim.h"
 #include "usart.h"
@@ -38,12 +36,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef enum{
-	NORMAL,
-	SAG,
-	UNDERVOLTAGE,
-	SWELL,
-	OVERVOLTAGE
+typedef enum {
+    NORMAL, SAG, UNDERVOLTAGE, SWELL, OVERVOLTAGE
 } Gangguan_t;
 /* USER CODE END PTD */
 
@@ -60,25 +54,24 @@ typedef enum{
 
 /* USER CODE BEGIN PV */
 
+bool cf1_edgeStates;
+bool cf_edgeStates;
+
+uint32_t cf_us;
+uint32_t cf1_us;
+
+uint32_t cf_t1;
+uint32_t cf_t2;
+uint32_t cf1_t1;
+uint32_t cf1_t2;
+
 uint16_t ADC_Value;
-/* Global handle to reference the instantiated C-model */
+float voltage_rms;
 static ai_handle network = AI_HANDLE_NULL;
 
-/* Global c-array to handle the activations buffer */
-AI_ALIGNED(32)
-static ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
-
-/* Array to store the data of the input tensor */
-AI_ALIGNED(32)
-static ai_float in_data[AI_NETWORK_IN_1_SIZE];
-/* or static ai_u8 in_data[AI_NETWORK_IN_1_SIZE_BYTES]; */
-
-/* c-array to store the data of the output tensor */
-AI_ALIGNED(32)
-static ai_float out_data[AI_NETWORK_OUT_1_SIZE];
-/* static ai_u8 out_data[AI_NETWORK_OUT_1_SIZE_BYTES]; */
-
-/* Array of pointer to manage the model's input/output tensors */
+AI_ALIGNED(32) static ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
+AI_ALIGNED(32) static ai_float in_data[AI_NETWORK_IN_1_SIZE];
+AI_ALIGNED(32) static ai_float out_data[AI_NETWORK_OUT_1_SIZE];
 static ai_buffer *ai_input;
 static ai_buffer *ai_output;
 /* USER CODE END PV */
@@ -93,7 +86,7 @@ int aiInit(void) {
     ai_error err;
 
     /* Create and initialize the c-model */
-    const ai_handle acts[] = { activations };
+    const ai_handle acts[] = {activations};
     err = ai_network_create_and_init(&network, acts, NULL);
     if (err.type != AI_ERROR_NONE) {
         printf("Error INIT AI Network!\r\n");
@@ -128,21 +121,21 @@ int aiRun(const void *in_data, void *out_data) {
     return 0;
 }
 
-float RandomNumber(float min, float max){
+float RandomNumber(float min, float max) {
     uint32_t randomNumber;
-    HAL_RNG_GenerateRandomNumber(&hrng,&randomNumber);
-    return min + (randomNumber / (float)UINT32_MAX) * (max - min);
+    HAL_RNG_GenerateRandomNumber(&hrng, &randomNumber);
+    return min + (randomNumber / (float) UINT32_MAX) * (max - min);
 }
 
-int ProsesOutput(ai_float* input_data, unsigned int len){
-	ai_float maxValue = input_data[0];
-	int maxIndex = 0;
-	for (int i = 1; i < len; i++) {
-	    if (input_data[i] > maxValue) {
-	        maxValue = input_data[i];
-	        maxIndex = i;
-	    }
-	}
+int ProsesOutput(ai_float *input_data, unsigned int len) {
+    ai_float maxValue = input_data[0];
+    int maxIndex = 0;
+    for (int i = 1; i < len; i++) {
+        if (input_data[i] > maxValue) {
+            maxValue = input_data[i];
+            maxIndex = i;
+        }
+    }
     return maxIndex;
 }
 /* USER CODE END PFP */
@@ -160,16 +153,27 @@ PUTCHAR_PROTOTYPE {
     return ch;
 }
 
-/*
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim->Instance == TIM3) {
-        HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 1);
     }
 }
-*/
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-    HAL_UART_Transmit(&huart1, (uint8_t*)&ADC_Value, sizeof(ADC_Value), HAL_MAX_DELAY);
+    static int16_t prevSample;
+    static unsigned int sampleCount = 0;
+    static float sum = 0;
+    int16_t normalized_adc = (int16_t) ADC_Value - 2000;
+    sum += (float) normalized_adc * (float) normalized_adc;
+    sampleCount++;
+    if (sampleCount >= 1000) {
+        sampleCount = 0;
+        float voltage = sqrt(sum / 1000.);
+        voltage_rms = voltage;
+        HAL_UART_Transmit(&huart1, (uint8_t *) &voltage_rms, sizeof(voltage_rms), HAL_MAX_DELAY);
+        sum = 0;
+    }
+    prevSample = normalized_adc;
+
 }
 /* USER CODE END 0 */
 
@@ -177,129 +181,120 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
-{
-  /* USER CODE BEGIN 1 */
+int main(void) {
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
-  MX_USART1_UART_Init();
-  MX_TIM3_Init();
-  MX_RNG_Init();
-  MX_CRC_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_USART1_UART_Init();
+    MX_TIM3_Init();
+    MX_RNG_Init();
+    MX_CRC_Init();
+    MX_TIM5_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* USER CODE END 2 */
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-
+    /* Infinite loop */
     /* USER CODE BEGIN WHILE */
-  char buffer[256];
-  HAL_GPIO_TogglePin(LED0_GPIO_Port,LED0_Pin);
-  HAL_Delay(500);
-  HAL_GPIO_TogglePin(LED0_GPIO_Port,LED0_Pin);
-  HAL_Delay(500);
-  sprintf(buffer,"Hello World\r\n");
-  HAL_UART_Transmit(&huart1, (uint8_t*)&buffer, strlen(buffer), HAL_MAX_DELAY);
-  aiInit();
-  while (1)
-  {
-    /* USER CODE END WHILE */
-	char namaGangguan[16];
-    in_data[0] = RandomNumber(0,120);
-    in_data[1] = RandomNumber(22,418);
-    aiRun(in_data, out_data);
-    Gangguan_t gangguan = ProsesOutput(out_data,5);
-    switch(gangguan){
-    case NORMAL:
-    	sprintf(namaGangguan,"Normal");
-    	break;
-    case SAG:
-    	sprintf(namaGangguan,"Sag");
-    	break;
-    case UNDERVOLTAGE:
-    	sprintf(namaGangguan,"Undervoltage");
-    	break;
-    case SWELL:
-    	sprintf(namaGangguan,"Swell");
-    	break;
-    case OVERVOLTAGE:
-    	sprintf(namaGangguan,"Overvoltage");
-    	break;
+
+    char buffer[256];
+    HAL_TIM_Base_Start_IT(&htim3);
+    aiInit();
+    while (1) {
+        char namaGangguan[16];
+        in_data[0] = RandomNumber(0, 120);
+        in_data[1] = RandomNumber(22, 418);
+        aiRun(in_data, out_data);
+        Gangguan_t gangguan = ProsesOutput(out_data, 5);
+        switch (gangguan) {
+            case NORMAL:
+                sprintf(namaGangguan, "Normal");
+                break;
+            case SAG:
+                sprintf(namaGangguan, "Sag");
+                break;
+            case UNDERVOLTAGE:
+                sprintf(namaGangguan, "Undervoltage");
+                break;
+            case SWELL:
+                sprintf(namaGangguan, "Swell");
+                break;
+            case OVERVOLTAGE:
+                sprintf(namaGangguan, "Overvoltage");
+                break;
+        }
+        sprintf(buffer, "Invoked (%.2f,%.2f) = %s\r\n", in_data[0], in_data[1],
+                namaGangguan);
+        HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+        HAL_Delay(500);
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
     }
-    sprintf(buffer,"Invoked (%.2f,%.2f) = %s\r\n",in_data[0],in_data[1],namaGangguan);
-    HAL_GPIO_TogglePin(LED0_GPIO_Port,LED0_Pin);
-    HAL_UART_Transmit(&huart1, (uint8_t*)&buffer, strlen(buffer), HAL_MAX_DELAY);
-    HAL_Delay(500);
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
-{
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+void SystemClock_Config(void) {
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /** Configure the main internal regulator output voltage
+    */
+    __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 168;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLN = 168;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+        Error_Handler();
+    }
 
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                  | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
+        Error_Handler();
+    }
 }
 
 /* USER CODE BEGIN 4 */
@@ -310,14 +305,13 @@ void SystemClock_Config(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
-{
-  /* USER CODE BEGIN Error_Handler_Debug */
+void Error_Handler(void) {
+    /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
     }
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT

@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Thu Jan 12 17:43:15 2023
+  * @date    Fri Jan 13 19:03:26 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -42,7 +42,7 @@
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "Thu Jan 12 17:43:15 2023"
+#define AI_TOOLS_DATE_TIME   "Fri Jan 13 19:03:26 2023"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__

@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.3.0-RC5)
-Created date          : 2023-01-12 17:43:15
-Parameters            : generate --name network -m /home/kohigashi/PycharmProjects/FunctionFitting/NN_Model1.tflite --type tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace1769085232158918253920001430626656 --output /home/kohigashi/.stm32cubemx/network_output --allocate-inputs --allocate-outputs
+Created date          : 2023-01-13 19:03:27
+Parameters            : generate --name network -m /home/kohigashi/PycharmProjects/FunctionFitting/NN_Model1.tflite --type tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace349788026115454372350947765248363 --output /home/kohigashi/.stm32cubemx/network_output --allocate-inputs --allocate-outputs
 
 Exec/report summary (generate)
 ----------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ compression        :   none
 options            :   allocate-inputs, allocate-outputs                               
 optimization       :   balanced                                                        
 target/series      :   generic                                                         
-workspace dir      :   /tmp/mxAI_workspace1769085232158918253920001430626656           
+workspace dir      :   /tmp/mxAI_workspace349788026115454372350947765248363            
 output dir         :   /home/kohigashi/.stm32cubemx/network_output                     
 model_fmt          :   float                                                           
 model_name         :   NN_Model1                                                       

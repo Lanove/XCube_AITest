@@ -49,7 +49,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories("${workspace_loc:/${ProjName}/Core/Inc}" ${workspace_loc:/${ProjName}/Drivers/STM32F4xx_HAL_Driver/Inc} ${workspace_loc:/${ProjName}/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy} ${workspace_loc:/${ProjName}/Drivers/CMSIS/Device/ST/STM32F4xx/Include} ${workspace_loc:/${ProjName}/Drivers/CMSIS/Device/ST/STM32F4xx/Include } ${workspace_loc:/${ProjName}/Drivers/CMSIS/Include} ${workspace_loc:/${ProjName}/Middlewares/ST/AI/Inc} ${workspace_loc:/${ProjName}/X-CUBE-AI/App})
+include_directories(/Core/Inc /Drivers/STM32F4xx_HAL_Driver/Inc /Drivers/STM32F4xx_HAL_Driver/Inc/Legacy /Drivers/CMSIS/Device/ST/STM32F4xx/Include /Drivers/CMSIS/Device/ST/STM32F4xx/Include  /Drivers/CMSIS/Include /Middlewares/ST/AI/Inc /X-CUBE-AI/App Core/Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include  Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include Middlewares/ST/AI/Inc X-CUBE-AI/App)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx)
 

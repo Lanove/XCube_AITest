@@ -21,212 +21,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e33d259-c562-4726-885e-7f755f34c445" name="Changes" comment="Init">
-      <change afterPath="$PROJECT_DIR$/.ai/.ldupdatedone" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/network_NN_Model1.tflite_c_graph.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/network_NN_Model1.tflite_report.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/F407-VA_Measure.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/OCD_F407_VA_Measure.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/adc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/crc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/dma.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/gpio.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/main_cxx.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/rng.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/tim.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Inc/usart.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/adc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/crc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/dma.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/gpio.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/main_cxx.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/rng.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_hal_msp.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/sysmem.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/system_stm32f4xx.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/tim.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Src/usart.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Startup/startup_stm32f407vetx.s" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Device/ST/STM32F4xx/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_armcc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_armclang.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_compiler.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_gcc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_iccarm.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/cmsis_version.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_armv8mbl.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_armv8mml.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm0.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm0plus.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm1.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm23.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm3.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm33.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm4.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_cm7.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_sc000.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/core_sc300.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/mpu_armv7.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/mpu_armv8.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/Include/tz_context.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/CMSIS/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_cortex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_crc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_exti.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_pwr.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rcc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rng.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_tim.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usart.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_utils.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_crc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rng.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_adc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/F407-VA_Measure.ioc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_common_config.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes_defines.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes_format.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_datatypes_internal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_layer_custom_interface.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite_inspect.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite_interface.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_lite_math_helpers.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_math_helpers.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_platform.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/ai_platform_interface.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_common.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_convert.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_datatypes.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_log.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_net_inspect.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_net_inspect_interface.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/core_private.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/datatypes_network.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/formats_list.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_common.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_conv2d.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_conv2d_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_custom.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_dense.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_dense_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_formats_converters.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_generic.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_generic_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_list.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_lite_graph.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_iforest.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_linearclassifier.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_svc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_svmregressor.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_treeensembleclassifier.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_ml_treeensembleregressor.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_nl.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_norm.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_padding_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_pool.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_pool_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_rnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/layers_sm.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_conv2d.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_conv2d_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_convert_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_if32.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_is1.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_is1ws1.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dense_ws1.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dw.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_dw_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_generic_float.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_maxpool_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_nl_generic_float.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_nl_generic_integer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_nl_list.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_operators.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_padding_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_pw.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Inc/lite_pw_dqnn.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Middlewares/ST/AI/Lib/NetworkRuntime730_CM4_GCC.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/STM32F407VETX_FLASH.ld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/STM32F407VETX_RAM.ld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_config.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_generate_report.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/X-CUBE-AI/constants_ai.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stm32f4discovery.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/adc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/dma.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/tim.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/tim.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/adc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/dma.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/gpio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tim.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tim.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.su" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/tim.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/tim.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/F407-VA_Measure.elf" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/F407-VA_Measure.elf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/F407-VA_Measure.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/F407-VA_Measure.list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/F407-VA_Measure.map" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/F407-VA_Measure.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/X-CUBE-AI/App/network.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/X-CUBE-AI/App/network.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/X-CUBE-AI/App/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/X-CUBE-AI/App/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_adc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/F407-VA_Measure Debug (1).launch" beforeDir="false" afterPath="$PROJECT_DIR$/F407-VA_Measure Debug (1).launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/F407-VA_Measure.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/F407-VA_Measure.ioc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network.c" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network.h" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network_config.h" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_config.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.c" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.h" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.c" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.h" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_data_params.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/X-CUBE-AI/App/network_generate_report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/X-CUBE-AI/App/network_generate_report.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,23 +90,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/home/kohigashi/CLionProjects/F407-VA_Measure",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.cidr.embedded.config",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kohigashi/CLionProjects/F407-VA_Measure&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.cidr.embedded.config&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Core/Src" />
@@ -338,6 +174,9 @@
       <workItem from="1673450452323" duration="941000" />
       <workItem from="1673503899445" duration="702000" />
       <workItem from="1673512475056" duration="6312000" />
+      <workItem from="1673576489893" duration="19000" />
+      <workItem from="1673592417612" duration="21000" />
+      <workItem from="1673611192569" duration="461000" />
     </task>
     <servers />
   </component>
