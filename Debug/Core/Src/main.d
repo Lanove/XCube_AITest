@@ -20,9 +20,6 @@ Core/Src/main.o: ../Core/Src/main.c \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
@@ -33,10 +30,8 @@ Core/Src/main.o: ../Core/Src/main.c \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/adc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/crc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/dma.h \
+ /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/rng.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/tim.h \
  /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/usart.h \
@@ -68,9 +63,6 @@ Core/Src/main.o: ../Core/Src/main.c \
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
@@ -81,10 +73,8 @@ Core/Src/main.o: ../Core/Src/main.c \
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/adc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/crc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/dma.h:
+/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/rng.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/tim.h:
 /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/usart.h:

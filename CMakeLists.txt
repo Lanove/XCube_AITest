@@ -46,10 +46,10 @@ elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
     add_compile_options(-Os)
 else ()
     message(STATUS "Minimal optimization, debug info included")
-    add_compile_options(-Og -g)
+    add_compile_options(-O0 -g)
 endif ()
 
-include_directories(/Core/Inc /Drivers/STM32F4xx_HAL_Driver/Inc /Drivers/STM32F4xx_HAL_Driver/Inc/Legacy /Drivers/CMSIS/Device/ST/STM32F4xx/Include /Drivers/CMSIS/Device/ST/STM32F4xx/Include  /Drivers/CMSIS/Include /Middlewares/ST/AI/Inc /X-CUBE-AI/App Core/Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include  Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include Middlewares/ST/AI/Inc X-CUBE-AI/App)
+include_directories(/Core/Inc /Drivers/STM32F4xx_HAL_Driver/Inc /Drivers/STM32F4xx_HAL_Driver/Inc/Legacy /Drivers/CMSIS/Device/ST/STM32F4xx/Include /Drivers/CMSIS/Device/ST/STM32F4xx/Include /Drivers/CMSIS/Include /Middlewares/ST/AI/Inc /X-CUBE-AI/App Core/Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include  Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include Middlewares/ST/AI/Inc X-CUBE-AI/App)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx)
 
@@ -57,11 +57,13 @@ file(GLOB_RECURSE SOURCES "X-CUBE-AI/*.*" "Core/*.*" "Middlewares/*.*" "Drivers/
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F407VETX_FLASH.ld)
 
+add_link_options(-specs=nosys.specs -lm -lc)
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+target_link_libraries(${PROJECT_NAME}.elf ${CMAKE_SOURCE_DIR}/Middlewares/ST/AI/Lib/NetworkRuntime730_CM4_GCC.a)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)

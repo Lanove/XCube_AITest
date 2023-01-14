@@ -43,6 +43,10 @@ typedef enum {
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define US_PER_VOLT 117120
+#define US_PER_mA 2116500
+#define US_PER_W 8136000
+#define SAMPLE_COUNT 5
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -54,16 +58,27 @@ typedef enum {
 
 /* USER CODE BEGIN PV */
 
-bool cf1_edgeStates;
-bool cf_edgeStates;
+char buffer[256];
+bool cfx_edgeStates[2];
+uint32_t cfx_us[2];
 
-uint32_t cf_us;
-uint32_t cf1_us;
+uint32_t cfx_t1[2];
+uint32_t cfx_t2[2];
+uint32_t cfx_ovc[2];
+bool cfx_readCurrent;
+bool cf_powerTimeout;
 
-uint32_t cf_t1;
-uint32_t cf_t2;
-uint32_t cf1_t1;
-uint32_t cf1_t2;
+uint32_t cf_us_sample[SAMPLE_COUNT];
+uint32_t cf_us_sample_index;
+
+float voltage_rms;
+float current_rms;
+float apparent_power;
+float real_power;
+
+TIM_HandleTypeDef *cfx_htim = &htim5;
+uint32_t cfx_timch[2] = {TIM_CHANNEL_3, TIM_CHANNEL_4};
+HAL_TIM_ActiveChannel cfx_activtimch[2] = {HAL_TIM_ACTIVE_CHANNEL_3, HAL_TIM_ACTIVE_CHANNEL_4};
 
 uint16_t ADC_Value;
 float voltage_rms;
@@ -138,43 +153,100 @@ int ProsesOutput(ai_float *input_data, unsigned int len) {
     }
     return maxIndex;
 }
+
+void printUART(const char *str, size_t len) {
+    HAL_UART_Transmit(&huart1, (uint8_t *) str, len, HAL_MAX_DELAY);
+}
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+    for (int i = 0; i < 2; i++) {
+        if ((htim == cfx_htim && (htim->Channel == cfx_activtimch[i]))) {
+            cfx_readCurrent = HAL_GPIO_ReadPin(SEL_GPIO_Port, SEL_Pin);
+            if (cfx_edgeStates[i] == 0) {
+                // Capture T1 & Reverse The ICU Edge Polarity
+                cfx_t1[i] = HAL_TIM_ReadCapturedValue(htim, cfx_timch[i]);
+                cfx_edgeStates[i] = 1;
+                cfx_ovc[i] = 0;
+                __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_FALLING);
+            } else if (cfx_edgeStates[i] == 1) {
+                cfx_t2[i] = HAL_TIM_ReadCapturedValue(htim, cfx_timch[i]);
+                cfx_us[i] = (cfx_t2[i] + (cfx_ovc[i] * 2000000)) - cfx_t1[i];
+                cfx_edgeStates[i] = 0;
+                __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_RISING);
+                if (htim->Channel == cfx_activtimch[1]) {
+                    if (cfx_readCurrent == HAL_GPIO_ReadPin(SEL_GPIO_Port, SEL_Pin)) {
+                        if (cfx_readCurrent && cfx_us[i] > 5000 || !cfx_readCurrent) {
+                            cf_us_sample[cf_us_sample_index] = cfx_us[i];
+                            cf_us_sample_index++;
+                        }
+                        if (cf_us_sample_index >= SAMPLE_COUNT) {
+                            int32_t sum = 0,
+                                    std_defiance_sum = 0,
+                                    mean = 0;
+                            float std_defiance = 0;
+                            for (int i = 0; i < SAMPLE_COUNT; i++)
+                                sum += cf_us_sample[i];
+                            if(sum < 0)
+                                sum = INT32_MAX-1;
+                            mean = sum / SAMPLE_COUNT;
+                            for (int i = 0; i < SAMPLE_COUNT; i++) {
+                                int32_t mean_diff;
+                                mean_diff = cf_us_sample[i] - mean;
+                                if (mean_diff > 10000) // clip to prevent overflow
+                                    mean_diff = 10000;
+                                std_defiance_sum += (mean_diff * mean_diff);
+                            }
+                            std_defiance = sqrtf((float) std_defiance_sum / SAMPLE_COUNT);
+                            if ((cfx_readCurrent && std_defiance < 500.) || (!cfx_readCurrent && std_defiance < 50.)) {
+                                if (cfx_readCurrent)
+                                    current_rms = (float) US_PER_mA / (float) cfx_us[i];
+                                else if (!cfx_readCurrent) {
+                                    voltage_rms = (float) US_PER_VOLT / (float) cfx_us[i];
+                                    sprintf(buffer,"V %lu\r\n",cfx_us[i]);
+                                    printUART(buffer,strlen(buffer));
+                                }
+                                apparent_power = voltage_rms * (current_rms / 1000.);
+                                HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
+                            }else if(cfx_readCurrent && (std_defiance > 10000. || isnan(std_defiance) )){
+                                current_rms = 0.;
+                                HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
+                            }
+                            cf_us_sample_index = 0;
+                        }
+                    }
+                } else {
+                    real_power = (float) US_PER_W / (float) cfx_us[i];
+                    cf_powerTimeout = false;
+                }
+            }
+        }
+    }
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim == cfx_htim) { // Period of timer is elapsed, reset CFs Input Capture when it's overflowing for 2 times atleast
+        for (int i = 0; i < 2; i++) {
+            cfx_ovc[i]++;
+            if (cfx_ovc[i] >= 2) {
+                if (i == 0) {
+                    cf_powerTimeout = true;
+                    real_power = 0.;
+                    current_rms = 0.;
+                }
+                cfx_ovc[i] = 0;
+                if (cfx_edgeStates[i] == 1) {
+                    cfx_edgeStates[i] = 0;
+                    cfx_us[i] = 0;
+                    __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_RISING);
+                }
+            }
+        }
+    }
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#ifdef __GNUC__
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif
-
-PUTCHAR_PROTOTYPE {
-    HAL_UART_Transmit(&huart1, (uint8_t *) &ch, 1, HAL_MAX_DELAY);
-    return ch;
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM3) {
-    }
-}
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-    static int16_t prevSample;
-    static unsigned int sampleCount = 0;
-    static float sum = 0;
-    int16_t normalized_adc = (int16_t) ADC_Value - 2000;
-    sum += (float) normalized_adc * (float) normalized_adc;
-    sampleCount++;
-    if (sampleCount >= 1000) {
-        sampleCount = 0;
-        float voltage = sqrt(sum / 1000.);
-        voltage_rms = voltage;
-        HAL_UART_Transmit(&huart1, (uint8_t *) &voltage_rms, sizeof(voltage_rms), HAL_MAX_DELAY);
-        sum = 0;
-    }
-    prevSample = normalized_adc;
-
-}
 /* USER CODE END 0 */
 
 /**
@@ -216,7 +288,9 @@ int main(void) {
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
 
-    char buffer[256];
+    HAL_TIM_Base_Start_IT(cfx_htim);
+    HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[0]);
+    HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[1]);
     HAL_TIM_Base_Start_IT(&htim3);
     aiInit();
     while (1) {
@@ -244,8 +318,11 @@ int main(void) {
         }
         sprintf(buffer, "Invoked (%.2f,%.2f) = %s\r\n", in_data[0], in_data[1],
                 namaGangguan);
+//        printUART(buffer, strlen(buffer));
         HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-        HAL_Delay(500);
+        sprintf(buffer, "%.2fV %.2fmA %.2fVA %.2fW\r\n", voltage_rms, current_rms, apparent_power, real_power);
+        printUART(buffer, strlen(buffer));
+        HAL_Delay(1000);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -269,13 +346,12 @@ void SystemClock_Config(void) {
     /** Initializes the RCC Oscillators according to the specified parameters
     * in the RCC_OscInitTypeDef structure.
     */
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSI;
-    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
     RCC_OscInitStruct.LSIState = RCC_LSI_ON;
     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM = 4;
     RCC_OscInitStruct.PLL.PLLN = 168;
     RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
     RCC_OscInitStruct.PLL.PLLQ = 7;
