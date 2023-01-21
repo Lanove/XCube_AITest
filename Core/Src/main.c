@@ -46,17 +46,25 @@ typedef enum {
 #define US_PER_VOLT 117120
 #define US_PER_mA 2116500
 #define US_PER_W 8136000
-#define SAMPLE_COUNT 5
+#define SAMPLE_COUNT 10
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+struct PowerLineData{
+    float voltage_rms;
+    float current_rms;
+    float apparent_power;
+    float real_power;
+    Gangguan_t kondisi;
+};
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+struct PowerLineData pwr;
 
 char buffer[256];
 bool cfx_edgeStates[2];
@@ -66,22 +74,17 @@ uint32_t cfx_t1[2];
 uint32_t cfx_t2[2];
 uint32_t cfx_ovc[2];
 bool cfx_readCurrent;
-bool cf_powerTimeout;
-
-uint32_t cf_us_sample[SAMPLE_COUNT];
-uint32_t cf_us_sample_index;
 
 float voltage_rms;
 float current_rms;
 float apparent_power;
 float real_power;
+float t_float= 0.5;
 
 TIM_HandleTypeDef *cfx_htim = &htim5;
 uint32_t cfx_timch[2] = {TIM_CHANNEL_3, TIM_CHANNEL_4};
 HAL_TIM_ActiveChannel cfx_activtimch[2] = {HAL_TIM_ACTIVE_CHANNEL_3, HAL_TIM_ACTIVE_CHANNEL_4};
 
-uint16_t ADC_Value;
-float voltage_rms;
 static ai_handle network = AI_HANDLE_NULL;
 
 AI_ALIGNED(32) static ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
@@ -142,7 +145,7 @@ float RandomNumber(float min, float max) {
     return min + (randomNumber / (float) UINT32_MAX) * (max - min);
 }
 
-int ProsesOutput(ai_float *input_data, unsigned int len) {
+Gangguan_t ProsesOutput(ai_float *input_data, unsigned int len) {
     ai_float maxValue = input_data[0];
     int maxIndex = 0;
     for (int i = 1; i < len; i++) {
@@ -152,6 +155,20 @@ int ProsesOutput(ai_float *input_data, unsigned int len) {
         }
     }
     return maxIndex;
+}
+
+const char* gangguanToString(Gangguan_t g){
+    if(g == NORMAL)
+        return "Normal";
+    else if(g==SAG)
+        return "Sag";
+    else if(g==SWELL)
+        return "Swell";
+    else if(g==UNDERVOLTAGE)
+        return "Undervoltage";
+    else if(g==OVERVOLTAGE)
+        return "Overvoltage";
+    return "Unknown";
 }
 
 void printUART(const char *str, size_t len) {
@@ -173,50 +190,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
                 cfx_us[i] = (cfx_t2[i] + (cfx_ovc[i] * 2000000)) - cfx_t1[i];
                 cfx_edgeStates[i] = 0;
                 __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_RISING);
-                if (htim->Channel == cfx_activtimch[1]) {
-                    if (cfx_readCurrent == HAL_GPIO_ReadPin(SEL_GPIO_Port, SEL_Pin)) {
-                        if (cfx_readCurrent && cfx_us[i] > 5000 || !cfx_readCurrent) {
-                            cf_us_sample[cf_us_sample_index] = cfx_us[i];
-                            cf_us_sample_index++;
-                        }
-                        if (cf_us_sample_index >= SAMPLE_COUNT) {
-                            int32_t sum = 0,
-                                    std_defiance_sum = 0,
-                                    mean = 0;
-                            float std_defiance = 0;
-                            for (int i = 0; i < SAMPLE_COUNT; i++)
-                                sum += cf_us_sample[i];
-                            if(sum < 0)
-                                sum = INT32_MAX-1;
-                            mean = sum / SAMPLE_COUNT;
-                            for (int i = 0; i < SAMPLE_COUNT; i++) {
-                                int32_t mean_diff;
-                                mean_diff = cf_us_sample[i] - mean;
-                                if (mean_diff > 10000) // clip to prevent overflow
-                                    mean_diff = 10000;
-                                std_defiance_sum += (mean_diff * mean_diff);
-                            }
-                            std_defiance = sqrtf((float) std_defiance_sum / SAMPLE_COUNT);
-                            if ((cfx_readCurrent && std_defiance < 500.) || (!cfx_readCurrent && std_defiance < 50.)) {
-                                if (cfx_readCurrent)
-                                    current_rms = (float) US_PER_mA / (float) cfx_us[i];
-                                else if (!cfx_readCurrent) {
-                                    voltage_rms = (float) US_PER_VOLT / (float) cfx_us[i];
-                                    sprintf(buffer,"V %lu\r\n",cfx_us[i]);
-                                    printUART(buffer,strlen(buffer));
-                                }
-                                apparent_power = voltage_rms * (current_rms / 1000.);
-                                HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
-                            }else if(cfx_readCurrent && (std_defiance > 10000. || isnan(std_defiance) )){
-                                current_rms = 0.;
-                                HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
-                            }
-                            cf_us_sample_index = 0;
-                        }
-                    }
-                } else {
+                if (htim->Channel == cfx_activtimch[0]) {
                     real_power = (float) US_PER_W / (float) cfx_us[i];
-                    cf_powerTimeout = false;
+                    if (real_power > 1000)
+                        real_power = 0;
                 }
             }
         }
@@ -224,12 +201,12 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim == cfx_htim) { // Period of timer is elapsed, reset CFs Input Capture when it's overflowing for 2 times atleast
+    if (htim ==
+        cfx_htim) { // Period of timer is elapsed, reset CFs Input Capture when it's overflowing for 2 times atleast
         for (int i = 0; i < 2; i++) {
             cfx_ovc[i]++;
             if (cfx_ovc[i] >= 2) {
                 if (i == 0) {
-                    cf_powerTimeout = true;
                     real_power = 0.;
                     current_rms = 0.;
                 }
@@ -253,40 +230,42 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   * @brief  The application entry point.
   * @retval int
   */
-int main(void) {
-    /* USER CODE BEGIN 1 */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
 
-    /* USER CODE END 1 */
+  /* USER CODE END 1 */
 
-    /* MCU Configuration--------------------------------------------------------*/
+  /* MCU Configuration--------------------------------------------------------*/
 
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
-    /* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-    /* USER CODE END Init */
+  /* USER CODE END Init */
 
-    /* Configure the system clock */
-    SystemClock_Config();
+  /* Configure the system clock */
+  SystemClock_Config();
 
-    /* USER CODE BEGIN SysInit */
+  /* USER CODE BEGIN SysInit */
 
-    /* USER CODE END SysInit */
+  /* USER CODE END SysInit */
 
-    /* Initialize all configured peripherals */
-    MX_GPIO_Init();
-    MX_USART1_UART_Init();
-    MX_TIM3_Init();
-    MX_RNG_Init();
-    MX_CRC_Init();
-    MX_TIM5_Init();
-    /* USER CODE BEGIN 2 */
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_USART1_UART_Init();
+  MX_TIM3_Init();
+  MX_RNG_Init();
+  MX_CRC_Init();
+  MX_TIM5_Init();
+  MX_USART3_UART_Init();
+  /* USER CODE BEGIN 2 */
 
-    /* USER CODE END 2 */
+  /* USER CODE END 2 */
 
-    /* Infinite loop */
-    /* USER CODE BEGIN WHILE */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
 
     HAL_TIM_Base_Start_IT(cfx_htim);
     HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[0]);
@@ -294,83 +273,97 @@ int main(void) {
     HAL_TIM_Base_Start_IT(&htim3);
     aiInit();
     while (1) {
+        static uint32_t lastTick;
+        static Gangguan_t lastGangguan;
         char namaGangguan[16];
-        in_data[0] = RandomNumber(0, 120);
-        in_data[1] = RandomNumber(22, 418);
+
+        HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+        if(cfx_readCurrent)
+            current_rms = (float)US_PER_mA/(float)cfx_us[1];
+        else
+            voltage_rms = (float)US_PER_VOLT/(float)cfx_us[1];
+        if(real_power == 0.)
+            current_rms = 0.;
+        apparent_power = voltage_rms * current_rms/1000.;
+        t_float += ((float)HAL_GetTick() - (float)lastTick)/1000.;
+        if(t_float >= 120.)
+            t_float = 120.;
+        in_data[0] = t_float;
+        in_data[1] = voltage_rms;
         aiRun(in_data, out_data);
         Gangguan_t gangguan = ProsesOutput(out_data, 5);
-        switch (gangguan) {
-            case NORMAL:
-                sprintf(namaGangguan, "Normal");
-                break;
-            case SAG:
-                sprintf(namaGangguan, "Sag");
-                break;
-            case UNDERVOLTAGE:
-                sprintf(namaGangguan, "Undervoltage");
-                break;
-            case SWELL:
-                sprintf(namaGangguan, "Swell");
-                break;
-            case OVERVOLTAGE:
-                sprintf(namaGangguan, "Overvoltage");
-                break;
-        }
-        sprintf(buffer, "Invoked (%.2f,%.2f) = %s\r\n", in_data[0], in_data[1],
-                namaGangguan);
-//        printUART(buffer, strlen(buffer));
-        HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-        sprintf(buffer, "%.2fV %.2fmA %.2fVA %.2fW\r\n", voltage_rms, current_rms, apparent_power, real_power);
+        if(lastGangguan != gangguan &&
+        !(lastGangguan == SWELL && gangguan == OVERVOLTAGE) &&
+        !(lastGangguan == SAG && gangguan == UNDERVOLTAGE))
+            t_float = 0.5;
+        sprintf(buffer, "%.2fV %.2fmA %.2fVA %.2fW %.2fs %s\r\n", voltage_rms, current_rms, apparent_power, real_power,t_float,
+                gangguanToString(gangguan));
         printUART(buffer, strlen(buffer));
-        HAL_Delay(1000);
-        /* USER CODE END WHILE */
+        pwr.voltage_rms = voltage_rms;
+        pwr.current_rms = current_rms;
+        pwr.apparent_power = apparent_power;
+        pwr.real_power = real_power;
+        pwr.kondisi = gangguan;
+        HAL_UART_Transmit(&huart3, (uint8_t *) &pwr, sizeof(struct PowerLineData), HAL_MAX_DELAY);
+        bool copy_readCurrent = cfx_readCurrent; // prevent to be toggled from interrupt before switching SEL
+        HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
+        lastTick = HAL_GetTick();
+        lastGangguan = gangguan;
+        if(copy_readCurrent)
+            HAL_Delay(500);
+        else
+            HAL_Delay(2000);
+    /* USER CODE END WHILE */
 
-        /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
     }
-    /* USER CODE END 3 */
+  /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void) {
-    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-    /** Configure the main internal regulator output voltage
-    */
-    __HAL_RCC_PWR_CLK_ENABLE();
-    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+  /** Configure the main internal regulator output voltage
+  */
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-    /** Initializes the RCC Oscillators according to the specified parameters
-    * in the RCC_OscInitTypeDef structure.
-    */
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSE;
-    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-    RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-    RCC_OscInitStruct.PLL.PLLM = 4;
-    RCC_OscInitStruct.PLL.PLLN = 168;
-    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-    RCC_OscInitStruct.PLL.PLLQ = 7;
-    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-        Error_Handler();
-    }
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 4;
+  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-    /** Initializes the CPU, AHB and APB buses clocks
-    */
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-                                  | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
-        Error_Handler();
-    }
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  {
+    Error_Handler();
+  }
 }
 
 /* USER CODE BEGIN 4 */
@@ -381,13 +374,14 @@ void SystemClock_Config(void) {
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void) {
-    /* USER CODE BEGIN Error_Handler_Debug */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
     }
-    /* USER CODE END Error_Handler_Debug */
+  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT

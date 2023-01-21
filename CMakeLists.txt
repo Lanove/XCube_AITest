@@ -46,7 +46,7 @@ elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
     add_compile_options(-Os)
 else ()
     message(STATUS "Minimal optimization, debug info included")
-    add_compile_options(-O0 -g)
+    add_compile_options(-Og -g)
 endif ()
 
 include_directories(/Core/Inc /Drivers/STM32F4xx_HAL_Driver/Inc /Drivers/STM32F4xx_HAL_Driver/Inc/Legacy /Drivers/CMSIS/Device/ST/STM32F4xx/Include /Drivers/CMSIS/Device/ST/STM32F4xx/Include /Drivers/CMSIS/Include /Middlewares/ST/AI/Inc /X-CUBE-AI/App Core/Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include  Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include Middlewares/ST/AI/Inc X-CUBE-AI/App)
