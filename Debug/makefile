@@ -10,6 +10,10 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include X-CUBE-AI/App/subdir.mk
+-include Middlewares/Third_Party/FatFs/src/option/subdir.mk
+-include Middlewares/Third_Party/FatFs/src/subdir.mk
+-include FATFS/Target/subdir.mk
+-include FATFS/App/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -76,8 +80,8 @@ all: main-build
 main-build: F407-VA_Measure.elf secondary-outputs
 
 # Tool invocations
-F407-VA_Measure.elf F407-VA_Measure.map: $(OBJS) $(USER_OBJS) /home/kohigashi/CLionProjects/F407-VA_Measure/STM32F407VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "F407-VA_Measure.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/kohigashi/CLionProjects/F407-VA_Measure/STM32F407VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407-VA_Measure.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -u _printf_float  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+F407-VA_Measure.elf F407-VA_Measure.map: $(OBJS) $(USER_OBJS) /home/kohigashi/Projects/XCube_AITest/STM32F407VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "F407-VA_Measure.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/kohigashi/Projects/XCube_AITest/STM32F407VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407-VA_Measure.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -u _printf_float  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

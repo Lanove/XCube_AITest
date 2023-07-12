@@ -19,7 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "crc.h"
+#include "fatfs.h"
+#include "i2c.h"
 #include "rng.h"
+#include "sdio.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -32,12 +35,13 @@
 #include <main_cxx.h>
 #include "network.h"
 #include "network_data.h"
+#include "ds3231_for_stm32_hal.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 typedef enum {
-    NORMAL, SAG, UNDERVOLTAGE, SWELL, OVERVOLTAGE
+	NORMAL, SAG, UNDERVOLTAGE, SWELL, OVERVOLTAGE
 } Gangguan_t;
 /* USER CODE END PTD */
 
@@ -51,12 +55,12 @@ typedef enum {
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-struct PowerLineData{
-    float voltage_rms;
-    float current_rms;
-    float apparent_power;
-    float real_power;
-    Gangguan_t kondisi;
+struct PowerLineData {
+	float voltage_rms;
+	float current_rms;
+	float apparent_power;
+	float real_power;
+	Gangguan_t kondisi;
 };
 /* USER CODE END PM */
 
@@ -75,15 +79,18 @@ uint32_t cfx_t2[2];
 uint32_t cfx_ovc[2];
 bool cfx_readCurrent;
 
+uint8_t currentDate = 0;
 float voltage_rms;
 float current_rms;
 float apparent_power;
 float real_power;
-float t_float= 0.5;
+float t_float = 0.5;
+FRESULT fileLastOpenResult;
 
 TIM_HandleTypeDef *cfx_htim = &htim5;
-uint32_t cfx_timch[2] = {TIM_CHANNEL_3, TIM_CHANNEL_4};
-HAL_TIM_ActiveChannel cfx_activtimch[2] = {HAL_TIM_ACTIVE_CHANNEL_3, HAL_TIM_ACTIVE_CHANNEL_4};
+uint32_t cfx_timch[2] = { TIM_CHANNEL_3, TIM_CHANNEL_4 };
+HAL_TIM_ActiveChannel cfx_activtimch[2] = { HAL_TIM_ACTIVE_CHANNEL_3,
+		HAL_TIM_ACTIVE_CHANNEL_4 };
 
 static ai_handle network = AI_HANDLE_NULL;
 
@@ -101,124 +108,125 @@ void SystemClock_Config(void);
  * Bootstrap
  */
 int aiInit(void) {
-    ai_error err;
+	ai_error err;
 
-    /* Create and initialize the c-model */
-    const ai_handle acts[] = {activations};
-    err = ai_network_create_and_init(&network, acts, NULL);
-    if (err.type != AI_ERROR_NONE) {
-        printf("Error INIT AI Network!\r\n");
-    };
+	/* Create and initialize the c-model */
+	const ai_handle acts[] = { activations };
+	err = ai_network_create_and_init(&network, acts, NULL);
+	if (err.type != AI_ERROR_NONE) {
+		printf("Error INIT AI Network!\r\n");
+	};
 
-    /* Reteive pointers to the model's input/output tensors */
-    ai_input = ai_network_inputs_get(network, NULL);
-    ai_output = ai_network_outputs_get(network, NULL);
+	/* Reteive pointers to the model's input/output tensors */
+	ai_input = ai_network_inputs_get(network, NULL);
+	ai_output = ai_network_outputs_get(network, NULL);
 
-    return 0;
+	return 0;
 }
 
 /*
  * Run inference
  */
 int aiRun(const void *in_data, void *out_data) {
-    ai_i32 n_batch;
-    ai_error err;
+	ai_i32 n_batch;
+	ai_error err;
 
-    /* 1 - Update IO handlers with the data payload */
-    ai_input[0].data = AI_HANDLE_PTR(in_data);
-    ai_output[0].data = AI_HANDLE_PTR(out_data);
+	/* 1 - Update IO handlers with the data payload */
+	ai_input[0].data = AI_HANDLE_PTR(in_data);
+	ai_output[0].data = AI_HANDLE_PTR(out_data);
 
-    /* 2 - Perform the inference */
-    n_batch = ai_network_run(network, &ai_input[0], &ai_output[0]);
-    if (n_batch != 1) {
-        err = ai_network_get_error(network);
-        printf("Error Invoking Network!!\r\n");
-        return 1;
-    };
+	/* 2 - Perform the inference */
+	n_batch = ai_network_run(network, &ai_input[0], &ai_output[0]);
+	if (n_batch != 1) {
+		err = ai_network_get_error(network);
+		printf("Error Invoking Network!!\r\n");
+		return 1;
+	};
 
-    return 0;
+	return 0;
 }
 
 float RandomNumber(float min, float max) {
-    uint32_t randomNumber;
-    HAL_RNG_GenerateRandomNumber(&hrng, &randomNumber);
-    return min + (randomNumber / (float) UINT32_MAX) * (max - min);
+	uint32_t randomNumber;
+	HAL_RNG_GenerateRandomNumber(&hrng, &randomNumber);
+	return min + (randomNumber / (float) UINT32_MAX) * (max - min);
 }
 
 Gangguan_t ProsesOutput(ai_float *input_data, unsigned int len) {
-    ai_float maxValue = input_data[0];
-    int maxIndex = 0;
-    for (int i = 1; i < len; i++) {
-        if (input_data[i] > maxValue) {
-            maxValue = input_data[i];
-            maxIndex = i;
-        }
-    }
-    return maxIndex;
+	ai_float maxValue = input_data[0];
+	int maxIndex = 0;
+	for (int i = 1; i < len; i++) {
+		if (input_data[i] > maxValue) {
+			maxValue = input_data[i];
+			maxIndex = i;
+		}
+	}
+	return maxIndex;
 }
 
-const char* gangguanToString(Gangguan_t g){
-    if(g == NORMAL)
-        return "Normal";
-    else if(g==SAG)
-        return "Sag";
-    else if(g==SWELL)
-        return "Swell";
-    else if(g==UNDERVOLTAGE)
-        return "Undervoltage";
-    else if(g==OVERVOLTAGE)
-        return "Overvoltage";
-    return "Unknown";
+const char* gangguanToString(Gangguan_t g) {
+	if (g == NORMAL)
+		return "Normal";
+	else if (g == SAG)
+		return "Sag";
+	else if (g == SWELL)
+		return "Swell";
+	else if (g == UNDERVOLTAGE)
+		return "Undervoltage";
+	else if (g == OVERVOLTAGE)
+		return "Overvoltage";
+	return "Unknown";
 }
 
 void printUART(const char *str, size_t len) {
-    HAL_UART_Transmit(&huart1, (uint8_t *) str, len, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart1, (uint8_t*) str, len, HAL_MAX_DELAY);
 }
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-    for (int i = 0; i < 2; i++) {
-        if ((htim == cfx_htim && (htim->Channel == cfx_activtimch[i]))) {
-            cfx_readCurrent = HAL_GPIO_ReadPin(SEL_GPIO_Port, SEL_Pin);
-            if (cfx_edgeStates[i] == 0) {
-                // Capture T1 & Reverse The ICU Edge Polarity
-                cfx_t1[i] = HAL_TIM_ReadCapturedValue(htim, cfx_timch[i]);
-                cfx_edgeStates[i] = 1;
-                cfx_ovc[i] = 0;
-                __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_FALLING);
-            } else if (cfx_edgeStates[i] == 1) {
-                cfx_t2[i] = HAL_TIM_ReadCapturedValue(htim, cfx_timch[i]);
-                cfx_us[i] = (cfx_t2[i] + (cfx_ovc[i] * 2000000)) - cfx_t1[i];
-                cfx_edgeStates[i] = 0;
-                __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_RISING);
-                if (htim->Channel == cfx_activtimch[0]) {
-                    real_power = (float) US_PER_W / (float) cfx_us[i];
-                    if (real_power > 1000)
-                        real_power = 0;
-                }
-            }
-        }
-    }
+	for (int i = 0; i < 2; i++) {
+		if ((htim == cfx_htim && (htim->Channel == cfx_activtimch[i]))) {
+			if (cfx_edgeStates[i] == 0) {
+				// Capture T1 & Reverse The ICU Edge Polarity
+				cfx_t1[i] = HAL_TIM_ReadCapturedValue(htim, cfx_timch[i]);
+				cfx_edgeStates[i] = 1;
+				cfx_ovc[i] = 0;
+				__HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i],
+						TIM_INPUTCHANNELPOLARITY_FALLING);
+			} else if (cfx_edgeStates[i] == 1) {
+				cfx_t2[i] = HAL_TIM_ReadCapturedValue(htim, cfx_timch[i]);
+				cfx_us[i] = (cfx_t2[i] + (cfx_ovc[i] * 2000000)) - cfx_t1[i];
+				cfx_edgeStates[i] = 0;
+				__HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i],
+						TIM_INPUTCHANNELPOLARITY_RISING);
+				if (htim->Channel == cfx_activtimch[0]) {
+					real_power = (float) US_PER_W / (float) cfx_us[i];
+					if (real_power > 1000)
+						real_power = 0;
+				}
+			}
+		}
+	}
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim ==
-        cfx_htim) { // Period of timer is elapsed, reset CFs Input Capture when it's overflowing for 2 times atleast
-        for (int i = 0; i < 2; i++) {
-            cfx_ovc[i]++;
-            if (cfx_ovc[i] >= 2) {
-                if (i == 0) {
-                    real_power = 0.;
-                    current_rms = 0.;
-                }
-                cfx_ovc[i] = 0;
-                if (cfx_edgeStates[i] == 1) {
-                    cfx_edgeStates[i] = 0;
-                    cfx_us[i] = 0;
-                    __HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i], TIM_INPUTCHANNELPOLARITY_RISING);
-                }
-            }
-        }
-    }
+	if (htim == cfx_htim) { // Period of timer is elapsed, reset CFs Input Capture when it's overflowing for 2 times atleast
+		for (int i = 0; i < 2; i++) {
+			cfx_ovc[i]++;
+			if (cfx_ovc[i] >= 2) {
+				if (i == 0) {
+					real_power = 0.;
+					current_rms = 0.;
+				}
+				cfx_ovc[i] = 0;
+				if (cfx_edgeStates[i] == 1) {
+					cfx_edgeStates[i] = 0;
+					cfx_us[i] = 0;
+					__HAL_TIM_SET_CAPTUREPOLARITY(htim, cfx_timch[i],
+							TIM_INPUTCHANNELPOLARITY_RISING);
+				}
+			}
+		}
+	}
 }
 /* USER CODE END PFP */
 
@@ -260,6 +268,9 @@ int main(void)
   MX_CRC_Init();
   MX_TIM5_Init();
   MX_USART3_UART_Init();
+  MX_I2C1_Init();
+  MX_FATFS_Init();
+  MX_SDIO_SD_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -267,56 +278,93 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-    HAL_TIM_Base_Start_IT(cfx_htim);
-    HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[0]);
-    HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[1]);
-    HAL_TIM_Base_Start_IT(&htim3);
-    aiInit();
-    while (1) {
-        static uint32_t lastTick;
-        static Gangguan_t lastGangguan;
-        char namaGangguan[16];
+	HAL_TIM_Base_Start_IT(cfx_htim);
+	HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[0]);
+	HAL_TIM_IC_Start_IT(cfx_htim, cfx_timch[1]);
+	HAL_TIM_Base_Start_IT(&htim3);
+	aiInit();
+	DS3231_Init(&hi2c1);
+	HAL_Delay(1000);
+	FATFS fs;  // file system
+	FRESULT fresult = f_mount(&fs, "/", 1);
+	if (fresult != FR_OK) {
+		while (1) {
+			HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+			HAL_Delay(100);
+		}
+	}
+	while (1) {
+		static uint32_t lastTick;
+		static Gangguan_t lastGangguan;
+		char namaGangguan[16];
+		FIL file;
 
-        HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-        if(cfx_readCurrent)
-            current_rms = (float)US_PER_mA/(float)cfx_us[1];
-        else
-            voltage_rms = (float)US_PER_VOLT/(float)cfx_us[1];
-        if(real_power == 0.)
-            current_rms = 0.;
-        apparent_power = voltage_rms * current_rms/1000.;
-        t_float += ((float)HAL_GetTick() - (float)lastTick)/1000.;
-        if(t_float >= 120.)
-            t_float = 120.;
-        in_data[0] = t_float;
-        in_data[1] = voltage_rms;
-        aiRun(in_data, out_data);
-        Gangguan_t gangguan = ProsesOutput(out_data, 5);
-        if(lastGangguan != gangguan &&
-        !(lastGangguan == SWELL && gangguan == OVERVOLTAGE) &&
-        !(lastGangguan == SAG && gangguan == UNDERVOLTAGE))
-            t_float = 0.5;
-        sprintf(buffer, "%.2fV %.2fmA %.2fVA %.2fW %.2fs %s\r\n", voltage_rms, current_rms, apparent_power, real_power,t_float,
-                gangguanToString(gangguan));
-        printUART(buffer, strlen(buffer));
-        pwr.voltage_rms = voltage_rms;
-        pwr.current_rms = current_rms;
-        pwr.apparent_power = apparent_power;
-        pwr.real_power = real_power;
-        pwr.kondisi = gangguan;
-        HAL_UART_Transmit(&huart3, (uint8_t *) &pwr, sizeof(struct PowerLineData), HAL_MAX_DELAY);
-        bool copy_readCurrent = cfx_readCurrent; // prevent to be toggled from interrupt before switching SEL
-        HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
-        lastTick = HAL_GetTick();
-        lastGangguan = gangguan;
-        if(copy_readCurrent)
-            HAL_Delay(500);
-        else
-            HAL_Delay(2000);
+		HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+		if (cfx_readCurrent)
+			current_rms = (float) US_PER_mA / (float) cfx_us[1];
+		else
+			voltage_rms = (float) US_PER_VOLT / (float) cfx_us[1];
+		if (real_power == 0.)
+			current_rms = 0.;
+		apparent_power = voltage_rms * current_rms / 1000.;
+		t_float += ((float) HAL_GetTick() - (float) lastTick) / 1000.;
+		if (t_float >= 120.)
+			t_float = 120.;
+		in_data[0] = t_float;
+		in_data[1] = voltage_rms;
+		aiRun(in_data, out_data);
+		Gangguan_t gangguan = ProsesOutput(out_data, 5);
+		if (lastGangguan != gangguan
+				&& !(lastGangguan == SWELL && gangguan == OVERVOLTAGE)
+				&& !(lastGangguan == SAG && gangguan == UNDERVOLTAGE))
+			t_float = 0.5;
+		sprintf(buffer, "%.2fV %.2fmA %.2fVA %.2fW %.2fs %s\r\n", voltage_rms,
+				current_rms, apparent_power, real_power, t_float,
+				gangguanToString(gangguan));
+		printUART(buffer, strlen(buffer));
+
+		sprintf(buffer, "%u_%u_%u.csv", DS3231_GetDate(), DS3231_GetMonth(),
+				DS3231_GetYear());
+		fresult = f_open(&file, buffer,
+				FA_OPEN_APPEND | FA_WRITE | FA_READ);
+		if(fresult != FR_OK){
+			while (1) {
+				HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+				HAL_Delay(100);
+			}
+		}
+		sprintf(buffer,
+				"%d:%d:%d,%.2fV,%.2fmA,%.2fVA,%.2fW,%.2fs,%s\n",
+				DS3231_GetHour(), DS3231_GetMinute(), DS3231_GetSecond(),
+				voltage_rms, current_rms, apparent_power, real_power, t_float,
+				gangguanToString(gangguan));
+		int writtenBytes = f_puts(buffer, &file);
+		if(writtenBytes < 0){
+			while (1) {
+				HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+				HAL_Delay(100);
+			}
+		}
+		f_close(&file);
+		pwr.voltage_rms = voltage_rms;
+		pwr.current_rms = current_rms;
+		pwr.apparent_power = apparent_power;
+		pwr.real_power = real_power;
+		pwr.kondisi = gangguan;
+		HAL_UART_Transmit(&huart3, (uint8_t*) &pwr,
+				sizeof(struct PowerLineData), HAL_MAX_DELAY);
+		bool copy_readCurrent = cfx_readCurrent; // prevent to be toggled from interrupt before switching SEL
+		HAL_GPIO_TogglePin(SEL_GPIO_Port, SEL_Pin);
+		lastTick = HAL_GetTick();
+		lastGangguan = gangguan;
+		if (copy_readCurrent)
+			HAL_Delay(500);
+		else
+			HAL_Delay(2000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    }
+	}
   /* USER CODE END 3 */
 }
 
@@ -377,10 +425,10 @@ void SystemClock_Config(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-    /* User can add his own implementation to report the HAL error return state */
-    __disable_irq();
-    while (1) {
-    }
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 

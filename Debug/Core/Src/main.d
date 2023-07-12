@@ -1,87 +1,107 @@
-Core/Src/main.o: ../Core/Src/main.c \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/stm32f4xx_hal_conf.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/core_cm4.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/cmsis_version.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/cmsis_compiler.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/cmsis_gcc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/mpu_armv7.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/crc.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/rng.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/tim.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/usart.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/gpio.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main_cxx.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network_config.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/Middlewares/ST/AI/Inc/ai_platform.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network_data.h \
- /home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network_data_params.h
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/stm32f4xx_hal_conf.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/core_cm4.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/cmsis_version.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/cmsis_compiler.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/cmsis_gcc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Include/mpu_armv7.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/crc.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/rng.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/tim.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/usart.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/gpio.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Core/Inc/main_cxx.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network_config.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/Middlewares/ST/AI/Inc/ai_platform.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network_data.h:
-/home/kohigashi/CLionProjects/F407-VA_Measure/X-CUBE-AI/App/network_data_params.h:
+Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ ../Core/Inc/stm32f4xx_hal_conf.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
+ ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
+ ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h \
+ ../Drivers/CMSIS/Include/core_cm4.h \
+ ../Drivers/CMSIS/Include/cmsis_version.h \
+ ../Drivers/CMSIS/Include/cmsis_compiler.h \
+ ../Drivers/CMSIS/Include/cmsis_gcc.h \
+ ../Drivers/CMSIS/Include/mpu_armv7.h \
+ ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Core/Inc/crc.h ../Core/Inc/main.h ../FATFS/App/fatfs.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
+ ../FATFS/Target/bsp_driver_sd.h \
+ ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ ../Middlewares/Third_Party/FatFs/src/diskio.h \
+ ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
+ ../Core/Inc/i2c.h ../Core/Inc/rng.h ../Core/Inc/sdio.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/main_cxx.h \
+ ../X-CUBE-AI/App/network.h ../X-CUBE-AI/App/network_config.h \
+ ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/network_data.h \
+ ../X-CUBE-AI/App/network_data_params.h \
+ ../Core/Inc/ds3231_for_stm32_hal.h
+../Core/Inc/main.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
+../Core/Inc/stm32f4xx_hal_conf.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:
+../Drivers/CMSIS/Include/core_cm4.h:
+../Drivers/CMSIS/Include/cmsis_version.h:
+../Drivers/CMSIS/Include/cmsis_compiler.h:
+../Drivers/CMSIS/Include/cmsis_gcc.h:
+../Drivers/CMSIS/Include/mpu_armv7.h:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/crc.h:
+../Core/Inc/main.h:
+../FATFS/App/fatfs.h:
+../Middlewares/Third_Party/FatFs/src/ff.h:
+../Middlewares/Third_Party/FatFs/src/integer.h:
+../FATFS/Target/ffconf.h:
+../FATFS/Target/bsp_driver_sd.h:
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+../Middlewares/Third_Party/FatFs/src/diskio.h:
+../Middlewares/Third_Party/FatFs/src/ff.h:
+../FATFS/Target/sd_diskio.h:
+../Core/Inc/i2c.h:
+../Core/Inc/rng.h:
+../Core/Inc/sdio.h:
+../Core/Inc/tim.h:
+../Core/Inc/usart.h:
+../Core/Inc/gpio.h:
+../Core/Inc/main_cxx.h:
+../X-CUBE-AI/App/network.h:
+../X-CUBE-AI/App/network_config.h:
+../Middlewares/ST/AI/Inc/ai_platform.h:
+../X-CUBE-AI/App/network_data.h:
+../X-CUBE-AI/App/network_data_params.h:
+../Core/Inc/ds3231_for_stm32_hal.h:
